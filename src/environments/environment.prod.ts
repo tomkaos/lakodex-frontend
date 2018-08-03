@@ -8,5 +8,6 @@ export const environment = {
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',
-  ]
+  ],
+  credentialsKey: 'credentials'
 };
