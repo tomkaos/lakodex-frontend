@@ -4,7 +4,7 @@ import env from './.env';
 export const environment = {
   production: true,
   version: env.npm_package_version,
-  serverUrl: 'http://intense-citadel-86043.herokuapp.com/api',
+  serverUrl: 'https://intense-citadel-86043.herokuapp.com/api',
   defaultLanguage: 'en-US',
   supportedLanguages: [
     'en-US',

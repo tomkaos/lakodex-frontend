@@ -23,7 +23,6 @@ import { SignupModule } from '@app/features/signup/signup.module';
 import { SettingsModule } from '@app/features/settings/settings.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { TokenInterceptor } from './core/http/token.interceptor';
 
 export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
@@ -34,7 +33,7 @@ export function getAuthServiceConfigs() {
         },
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('841813101724-gscej5s6lb8siu0jguia6vamc4hmdrrh.apps.googleusercontent.com')
+          provider: new GoogleLoginProvider('841813101724-fbuf95a74j9pqtgoqk3vmbocnocv49ia.apps.googleusercontent.com')
         },
       ]
   );
