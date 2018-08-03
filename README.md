@@ -1,5 +1,8 @@
 # lakodex
 
+Online URL: (https://rosy-environs-209817.firebaseapp.com)
+
+
 This project was generated with [ngX-Rocket](https://github.com/ngx-rocket/generator-ngx-rocket/)
 version 5.0.1
 
