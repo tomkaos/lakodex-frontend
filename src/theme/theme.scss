@@ -1,0 +1,67 @@
+/*
+ * Global application theme.
+ * Framework overrides and customization goes here.
+ */
+
+.firstCapital {
+  text-transform: capitalize;
+}
+
+.socialButton {
+  color:white;
+  border:0;
+  border-radius: 3px;
+  padding:0.5em 1em;
+  cursor:pointer;
+  transition:all .1s ease-in-out;
+  width:100%;
+
+  i {
+    margin-right:0.5em;
+  }
+
+  span {
+    font-weight: 300;
+  }
+
+  &.facebook {
+    background-color:#3b5998 !important;
+
+    &:hover {
+      background-color:darken(#3b5998,10%)!important;
+    }
+  }
+
+  &.google {
+    background-color:#ff5733!important;
+
+    &:hover {
+      background-color:darken(#ff5733, 10%)!important;
+    }
+  }
+}
+
+.settings-sidemenu {
+  .nav {
+    background-color:rgba(theme-color('primary'),0.5);
+    border-radius: 3px;
+    padding:0;
+
+    li {
+      a {
+        color:white;
+        transition:.2s all ease-in-out;
+
+        &:hover {
+          background-color:theme-color('primary')!important;
+          color:$white!important;
+        }
+
+        &.active {
+          background-color: theme-color('primary');
+        }
+      }
+    }
+  }
+}
+

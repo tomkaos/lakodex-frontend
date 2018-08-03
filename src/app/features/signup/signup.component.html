@@ -1,0 +1,116 @@
+<div class="signup-container bg-light">
+    <div class="signup-box">
+      <h1 translate>APP_NAME</h1>
+      <div>
+        <h6 class="d-inline-block">v{{version}}</h6>
+        <div class="d-inline-block ml-3" ngbDropdown>
+          <button id="language-dropdown" class="btn btn-sm btn-secondary dropdown" ngbDropdownToggle>
+            {{currentLanguage}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="language-dropdown" ngbDropdownMenu>
+            <button class="dropdown-item" (click)="setLanguage('en-US')" translate>English</button>
+            <button class="dropdown-item" (click)="setLanguage('hu-HU')" translate>Hungarian</button>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card col-md-6 mt-3 mx-auto">
+          <div class="card-body">
+            <form (ngSubmit)="signup()" [formGroup]="signupForm" novalidate>
+              <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+                <div *ngFor="let msg of error_messages">
+                  {{ msg }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="d-block">
+                  <input type="email" class="form-control" formControlName="email" autocomplete="email"
+                         [placeholder]="'Email' | translate"/>
+                  <span hidden translate>Email</span>
+                  <small [hidden]="signupForm.controls.email.valid || signupForm.controls.email.untouched"
+                         class="text-danger" translate>
+                    Email is required
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="text" class="form-control" formControlName="username" autocomplete="username"
+                          [placeholder]="'Username' | translate"/>
+                  <span hidden translate>Username</span>
+                  <small [hidden]="signupForm.controls.username.valid || signupForm.controls.username.untouched" class="text-danger" translate>
+                    Username is required and should be valid:<br>
+                    - Lowercase letters<br>
+                    - Alphanumeric characters<br>
+                    - Can contain underscore(_) and hyphen(-)<br>
+                    - Cannot be two underscores, two hyphens in a row<br>
+                    - Cannot have an underscore or hyphen at the start or end
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="text" class="form-control" formControlName="first_name" autocomplete="first_name"
+                          [placeholder]="'First Name' | translate"/>
+                  <span hidden translate>First Name</span>
+                  <small [hidden]="signupForm.controls.first_name.valid || signupForm.controls.first_name.untouched"
+                          class="text-danger" translate>
+                    First Name is required
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="text" class="form-control" formControlName="last_name" autocomplete="last_name"
+                          [placeholder]="'Last Name' | translate"/>
+                  <span hidden translate>Last Name</span>
+                  <small [hidden]="signupForm.controls.last_name.valid || signupForm.controls.last_name.untouched"
+                          class="text-danger" translate>
+                    Last Name is required
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="password" class="form-control" formControlName="password" autocomplete="current-password"
+                         [placeholder]="'Password' | translate" required/>
+                  <span hidden translate>Password</span>
+                  <small [hidden]="signupForm.controls.password.valid || signupForm.controls.password.untouched"
+                         class="text-danger" translate>
+                    Password is required
+                  </small>
+                </label>
+                <label class="d-block">
+                  <input type="password" class="form-control" formControlName="password2" autocomplete="current-password"
+                          [placeholder]="'Confirm Password' | translate" required/>
+                  <span hidden translate>Confirm Password</span>
+                  <small [hidden]="signupForm.controls.password2.valid || signupForm.controls.password2.untouched"
+                          class="text-danger" translate>
+                    Passwords must match.
+                  </small>
+                </label>
+              </div>
+              <button class="btn btn-primary w-100" type="submit" [disabled]="signupForm.invalid || isLoading">
+                <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+                <span translate>Sign Up</span>
+              </button>
+            </form>
+
+            <div class="mt-5">
+              <span translate>Already have an account? </span> <a routerLink="/login" translate>Log in here</a>
+            </div>
+
+            <div class="mt-5">
+              <div class="row">
+                <div class="col-md-6">
+                  <button class="socialButton facebook" (click)="socialSignup('facebook')">
+                    <i class="fab fa-facebook"></i>
+                    <span translate>Sign Up with Facebook</span>
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="socialButton google" (click)="socialSignup('google')">
+                    <i class="fab fa-google"></i>
+                    <span translate>Sign Up with Google</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

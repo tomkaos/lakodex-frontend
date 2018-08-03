@@ -1,0 +1,49 @@
+.social-accounts {
+  .connected-list {
+    margin:0;
+    padding:0;
+    list-style-type: none;
+
+    li {
+      margin-bottom:0.5rem;
+      display: flex;
+      align-items:center;
+
+      .socialButton {
+        height:40px;
+        cursor:default;
+        width:200px;
+        display:inline-flex;
+        align-items:center;
+        flex-direction: row;
+        justify-content: flex-end;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        .inner {
+          justify-self: flex-start;
+          margin-right:auto;
+        }
+      }
+
+      .profile-img {
+        // margin-left:2rem;
+        height:40px;
+        width:40px;
+        background: transparent;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        border-radius: 3px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        display:inline-block;
+      }
+
+      button {
+        width:100px;
+        margin-left:2rem;
+      }
+    }
+  }
+}

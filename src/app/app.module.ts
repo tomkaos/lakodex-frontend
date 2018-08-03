@@ -1,0 +1,70 @@
+import './rxjs-imports';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { Ng2Webstorage } from 'ngx-webstorage';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from 'angular-6-social-login';
+
+import { CoreModule } from '@app/core';
+import { SharedModule } from '@app/shared';
+import { HomeModule } from '@app/features/home/home.module';
+import { LoginModule } from '@app/features/login/login.module';
+import { SignupModule } from '@app/features/signup/signup.module';
+import { SettingsModule } from '@app/features/settings/settings.module';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { TokenInterceptor } from './core/http/token.interceptor';
+
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('653371135015179')
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('841813101724-gscej5s6lb8siu0jguia6vamc4hmdrrh.apps.googleusercontent.com')
+        },
+      ]
+  );
+  return config;
+}
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    Ng2Webstorage.forRoot({ prefix: 'ldx', separator: '-' }),
+    TranslateModule.forRoot(),
+    NgbModule.forRoot(),
+    CoreModule,
+    SharedModule,
+    HomeModule,
+    LoginModule,
+    SignupModule,
+    SettingsModule,
+    SocialLoginModule,
+    AppRoutingModule
+  ],
+  declarations: [AppComponent],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

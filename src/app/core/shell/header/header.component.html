@@ -1,0 +1,37 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/home" translate>APP_NAME</a>
+    <button class="navbar-toggler" type="button" aria-controls="navbar-menu"
+            aria-label="Toggle navigation" (click)="toggleMenu()" [attr.aria-expanded]="!menuHidden">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbar-menu" class="collapse navbar-collapse float-xs-none" [ngbCollapse]="menuHidden">
+
+      <div class="navbar-nav ml-auto">
+
+        <div *ngIf="!isAuthenticated" class="nav-item nav-link" routerLink="/login" routerLinkActive="active">
+          <i class="fas fa-user"></i>
+          <span translate>Login</span>
+        </div>
+
+        <div *ngIf="!isAuthenticated" class="nav-item nav-link" routerLink="/signup" routerLinkActive="active">
+          <i class="fas fa-user"></i>
+          <span translate>Register</span>
+        </div>
+
+        <div *ngIf="isAuthenticated" class="nav-item" ngbDropdown placement="bottom-right">
+          <a id="user-dropdown" class="nav-link" ngbDropdownToggle>
+            <span>{{username}}</span>
+            <img *ngIf="user_avatar" class="header-avatar" src="{{ user_avatar }}" />
+          </a>
+          <div ngbDropdownMenu aria-labelledby="user-dropdown">
+            <button class="dropdown-item" routerLink="/account-settings" translate>Account Settings</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" (click)="logout()" translate>Logout</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+</header>

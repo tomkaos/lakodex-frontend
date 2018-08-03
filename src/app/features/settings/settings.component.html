@@ -1,0 +1,114 @@
+
+
+    <h5 class="mb-5" translate>Site language <div class="d-inline-block ml-4" ngbDropdown>
+      <button id="language-dropdown" class="btn btn-sm btn-secondary dropdown" ngbDropdownToggle>
+        {{currentLanguage}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="language-dropdown" ngbDropdownMenu>
+        <button class="dropdown-item" (click)="setLanguage('en-US')" translate>English</button>
+        <button class="dropdown-item" (click)="setLanguage('hu-HU')" translate>Hungarian</button>
+      </div>
+      </div>
+    </h5>
+
+    <hr>
+
+    <div class="account-form mb-5">
+      <h5 class="mb-3" translate>Basic details</h5>
+      <form (ngSubmit)="updateUserDetails()" [formGroup]="updateForm" novalidate>
+        <div class="alert alert-danger" [hidden]="!error || isLoading" translate>
+          <div *ngFor="let msg of error_messages">
+            {{ msg }}
+          </div>
+        </div>
+        <div class="alert alert-success" [hidden]="!update_success" translate>
+          The new details has been successfully saved.
+        </div>
+        <div class="form-group">
+          <label class="d-block">
+            <span translate>Email address</span>
+            <input type="email" class="form-control" formControlName="email"/>
+            <span hidden translate>Email</span>
+          </label>
+          <label class="d-block">
+            <span translate>Username</span>
+            <input type="text" class="form-control" formControlName="username" autocomplete="username"
+                    [placeholder]="'Username' | translate"/>
+            <span hidden translate>Username</span>
+            <small [hidden]="updateForm.controls.username.valid || updateForm.controls.username.untouched"
+                    class="text-danger" translate>
+              Username is required and should be valid:<br>
+              - Lowercase letters<br>
+              - Alphanumeric characters<br>
+              - Can contain underscore(_) and hyphen(-)<br>
+              - Cannot be two underscores, two hyphens in a row<br>
+              - Cannot have an underscore or hyphen at the start or end
+            </small>
+          </label>
+          <label class="d-block">
+            <span translate>First name</span>
+            <input type="text" class="form-control" formControlName="first_name" autocomplete="first_name"
+                    [placeholder]="'First Name' | translate"/>
+            <span hidden translate>First Name</span>
+            <small [hidden]="updateForm.controls.first_name.valid || updateForm.controls.first_name.untouched"
+                    class="text-danger" translate>
+              First Name is required
+            </small>
+          </label>
+          <label class="d-block">
+            <span translate>Last name</span>
+            <input type="text" class="form-control" formControlName="last_name" autocomplete="last_name"
+                    [placeholder]="'Last Name' | translate"/>
+            <span hidden translate>Last Name</span>
+            <small [hidden]="updateForm.controls.last_name.valid || updateForm.controls.last_name.untouched"
+                    class="text-danger" translate>
+              Last Name is required
+            </small>
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="updateForm.invalid || isLoading || !updateForm.dirty">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading"></i>
+          <span translate>Update</span>
+        </button>
+      </form>
+    </div>
+
+    <hr>
+
+
+    <div class="password-form mb-5">
+      <h5 translate>Create new password</h5>
+      <div [hidden]="has_password || isLoadingPassword" class="alert alert-warning" translate>
+        User has not been set any password. Please set one for the future.
+      </div>
+      <form (ngSubmit)="newPassword()" [formGroup]="passwordForm" novalidate>
+        <div class="alert alert-danger" [hidden]="!error_pass || isLoading2" translate>
+          <div *ngFor="let msg of error_pass_messages">
+            {{ msg }}
+          </div>
+        </div>
+        <div class="alert alert-success" [hidden]="!pass_success" translate>
+          The new password has been successfully saved.
+        </div>
+        <div class="form-group">
+          <label class="d-block">
+            <span translate>New password</span>
+            <input type="password" class="form-control" formControlName="new_password1" minlength="8"/>
+            <span hidden translate>New password</span>
+          </label>
+          <label class="d-block">
+            <span translate>Confirm New password</span>
+            <input type="password" class="form-control" formControlName="new_password2" minlength="8"/>
+            <span hidden translate>Confirm New password</span>
+            <small [hidden]="passwordForm.controls.new_password2.valid" class="text-danger" translate>
+              Passwords are required with minimum 8 character and must match
+            </small>
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="passwordForm.invalid || isLoading2">
+          <i class="fas fa-cog fa-spin" [hidden]="!isLoading2"></i>
+          <span translate>Save</span>
+        </button>
+      </form>
+    </div>
+

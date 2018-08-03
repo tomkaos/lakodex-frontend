@@ -1,0 +1,48 @@
+<div class="social-accounts" *ngIf="connectedAccounts && supportedAccounts">
+  <h5 class="mb-5" translate>Connected Accounts</h5>
+  <div class="alert alert-warning" [hidden]='!disconnectError'>
+    {{ disconnectErrorMessages }}
+  </div>
+  <ul class="connected-list">
+    <li *ngFor="let account of supportedAccounts">
+      <span
+        *ngIf="avatar_url(account) == ''"
+        class="socialButton {{ account }}"
+        >
+        <span class="inner">
+          <i class="fab fa-{{ account }}"></i>
+          <span class="firstCapital" translate>{{ account }}</span>
+        </span>
+      </span>
+      <span
+        *ngIf="avatar_url(account) != ''"
+        (click)="setImage(account)"
+        class="socialButton {{ account }}"
+        ngbTooltip="Click here to set this profile image from {{ account }}"
+        >
+        <span class="inner">
+          <i class="fab fa-{{ account }}"></i>
+          <span class="firstCapital" translate>{{ account }}</span>
+        </span>
+      </span>
+      <div class="profile-img" [ngStyle]="{'background-image': 'url('+ avatar_url(account) +')'}"></div>
+      <button
+        *ngIf="isConnected(account)"
+        class="d-inline btn btn-sm btn-secondary btn-danger"
+        (click)="disconnectAccount(account)"
+        [disabled]="isLoadingAccounts"
+        translate>
+        Disconnect
+      </button>
+      <button
+        *ngIf="!isConnected(account)"
+        class="d-inline btn btn-sm btn-secondary btn-success"
+        (click)="connectAccount(account)"
+        [disabled]="isLoadingAccounts"
+        translate>
+        Connect
+      </button>
+    </li>
+  </ul>
+  <hr class="mb-5">
+</div>
