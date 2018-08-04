@@ -39,11 +39,10 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       log.error('Request error', response);
     }
 
-    if (this.router.url !== '/login' && response.hasOwnProperty('status') && (<any>response).status === 401) {
-      this._auth.logout().subscribe(
-        (success: boolean) => this.router.navigate(['/login'], { replaceUrl: true }),
-        error => log.error(error)
-      );
+    if (this.router.url !== '/login' && ( (<any>response).status === 401 || (<any>response).status === 403) ) {
+      console.log('The authentication session expires or the user is not authorised. Force refresh of the current page.');
+      this._auth.setCredentials();
+      this.router.navigate(['/login'], { replaceUrl: true });
     }
 
     throw response;

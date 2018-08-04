@@ -1,10 +1,12 @@
-import { Injectable} from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import { User } from '@app/core';
 import { environment } from '@env/environment';
+
 
 
 export interface Credentials {
@@ -48,10 +50,9 @@ const credentialsKey = environment.credentialsKey;
  * The Credentials interface as well as login/logout methods should be replaced with proper implementation.
  */
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService implements OnInit {
 
   public _credentials: Credentials | null;
-
   private _supported_social_accounts: Array<string> = [
     'facebook',
     'google'
@@ -59,12 +60,50 @@ export class AuthenticationService {
 
 
   constructor(
-    private _http: HttpClient
+    private _http: HttpClient,
+    private router: Router
   ) {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
     if (savedCredentials) {
       this._credentials = JSON.parse(savedCredentials);
+    } else {
+      this.setCredentials();
     }
+  }
+
+
+  ngOnInit() {
+/*     if (savedCredentials) {
+      const parsedCredentials = JSON.parse(savedCredentials);
+      this.verifyToken(parsedCredentials).subscribe(
+        (succ: any) => {
+          // tokenverify.unsubscribe();
+          console.log('Auth:',succ);
+          this._credentials = parsedCredentials;
+        },
+        (error: any) => {
+          // tokenverify.unsubscribe();
+          console.log('Auth:',error);
+          this.destroyCredentials();
+          this.router.navigate(['/login'], { replaceUrl: true });
+        }
+      );
+
+    } */
+  }
+
+
+  /**
+   * Verify saved token with API Server
+   */
+  public verifyToken(credentials: Credentials): Observable<any> {
+    return this._http.post('/user/token-verify/', {'token': (<any>credentials).token })
+      .pipe(
+        map(
+          success => console.log(success),
+          (error: any) => console.log(error)
+        )
+      );
   }
 
 
@@ -127,7 +166,8 @@ export class AuthenticationService {
           };
           this.setCredentials(data, true);
           return data;
-        })
+        },
+        (error: any) => console.log(error))
       );
   }
 
@@ -302,7 +342,7 @@ export class AuthenticationService {
    * @param {Credentials=} credentials The user credentials.
    * @param {boolean=} remember True to remember credentials across sessions.
    */
-  private setCredentials(credentials?: Credentials, remember?: boolean) {
+  public setCredentials(credentials?: Credentials, remember?: boolean) {
     this._credentials = credentials || null;
 
     if (credentials) {

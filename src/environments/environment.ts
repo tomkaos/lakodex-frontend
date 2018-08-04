@@ -14,5 +14,7 @@ export const environment = {
   supportedLanguages: [
     'en-US',
   ],
-  credentialsKey: 'credentials'
+  credentialsKey: 'credentials',
+  facebook_id: '446547522490628',
+  google_id: '463551153826-cvp4gk2rmhqb42v0ev9r9bno54nidffi.apps.googleusercontent.com'
 };

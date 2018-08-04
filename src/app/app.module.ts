@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from '@env/environment';
 
 import {
   SocialLoginModule,
@@ -29,11 +30,11 @@ export function getAuthServiceConfigs() {
       [
         {
           id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('653371135015179')
+          provider: new FacebookLoginProvider(environment.facebook_id)
         },
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('841813101724-fbuf95a74j9pqtgoqk3vmbocnocv49ia.apps.googleusercontent.com')
+          provider: new GoogleLoginProvider(environment.google_id)
         },
       ]
   );
